@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block body %}
+
+
+<div class="data">
+    <h2>{{information}}</h2>
+</div>
+<div class="teams">
+<div class="logos">
+    <img class="team-logos" src="/static/torontoraptors.png" alt = "toronto">
+    <img class="team-logos" src="/static/utahjazz.png" alt="utah">
+    <img class="team-logos" src="/static/atlantahawks.png" alt="atlanta">
+    <img class="team-logos" src="/static/bostonceltics.png" alt="boston">
+    <img class="team-logos" src="/static/brooklynnets.png" alt="brooklyn">
+    <img class="team-logos" src="/static/charlottehornets.png" alt="charlotte">
+    <img class="team-logos" src="/static/chicagobulls.png" alt="chicago">
+    <img class="team-logos" src="/static/clevelandcavaliers.png" alt="cleveland">
+    <img class="team-logos" src="/static/dallasmavericks.png" alt="dallas">
+    <img class="team-logos" src="/static/denvernuggets.png" alt="denver">
+    <img class="team-logos" src="/static/detroitpistons.png" alt="detroit">
+    <img class="team-logos" src="/static/goldenstatewarriors.png" alt="golden state">
+    <img class="team-logos" src="/static/houstonrockets.png" alt="houston">
+    <img class="team-logos" src="/static/indianapacers.png" alt="indiana">
+    <img class="team-logos" src="/static/losangelasclippers.png" alt="la clippers">
+    <img class="team-logos" src="/static/losangelaslakers.png" alt="la lakers">
+    <img class="team-logos" src="/static/memphasgrizzlies.png" alt="memphis">
+    <img class="team-logos" src="/static/miamiheat.png" alt="miami">
+    <img class="team-logos" src="/static/milwaukeebucks.png" alt="milwaukee">
+    <img class="team-logos" src="/static/minnesotatimberwolves.png" alt="minnesota">
+    <img class="team-logos" src="/static/neworleanspelicans.png" alt="new orleans">
+    <img class="team-logos" src="/static/newyorkknicks.png" alt="new york">
+    <img class="team-logos" src="/static/okcthunder.png" alt="oklahoma city">
+    <img class="team-logos" src="/static/orlandomagic.png" alt="orlando">
+    <img class="team-logos" src="/static/philadelphia76ers.png" alt="philadelphia">
+    <img class="team-logos" src="/static/phoenixsuns.png" alt="phoenix">
+    <img class="team-logos" src="/static/portlandtrailblazers.png" alt="portland">
+    <img class="team-logos" src="/static/sacramentokings.png" alt="sacramento">
+    <img class="team-logos" src="/static/sanantoniospurs.png" alt="san antonio">
+    <img class="team-logos" src="/static/washingtonwizards.png" alt="washington">
+
+    <div class="button-links">
+        <a> <button class="buttons" id="game-but" onclick="back()">Pick a different team</button></a>
+        <a href="/"><button class="buttons" id="date-but">Pick a different date</button></a>
+    </div>
+</div>
+
+<div class="teamsPlayed">
+    <div class="winners">
+        {{winnerList}}
+    </div>
+    <div class="losers">
+        {{loserList}}
+    </div>
+</div>
+<div class="boxScore">
+    
+    {% if table %}
+        {{table}}
+    {% else %}
+        {{"empty"}}
+    {% endif %}
+</div>
+</div>
+
+<script src="{{ url_for('static', filename='js/stats.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+
+{% endblock %}

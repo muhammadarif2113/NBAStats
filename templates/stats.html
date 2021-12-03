@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+<!-- <header>
+    <h1>{{date}}</h1>
+</header> -->
+
+{% endblock %}
+
+{% block body %}
+
+<div class="ctn">
+    <div class="data">
+        <h2>{{date}}</h2>
+    </div>
+
+    <div class="teams">
+        <!-- <div class="marquee">
+            <ul class="marquee-content">
+                <li id="slide1"></li>
+                <li id="slide2"></li>
+                <li id="slide3"></li>
+                <li id="slide4"></li>
+                <li id="slide5"></li>
+
+                <li id="slide6"></li>
+            </ul>
+        </div> -->
+        <div class="logos">
+            <img class="team-logos" src="/static/torontoraptors.png" alt = "toronto">
+            <img class="team-logos" src="/static/utahjazz.png" alt="utah">
+            <img class="team-logos" src="/static/atlantahawks.png" alt="atlanta">
+            <img class="team-logos" src="/static/bostonceltics.png" alt="boston">
+            <img class="team-logos" src="/static/brooklynnets.png" alt="brooklyn">
+            <img class="team-logos" src="/static/charlottehornets.png" alt="charlotte">
+            <img class="team-logos" src="/static/chicagobulls.png" alt="chicago">
+            <img class="team-logos" src="/static/clevelandcavaliers.png" alt="cleveland">
+            <img class="team-logos" src="/static/dallasmavericks.png" alt="dallas">
+            <img class="team-logos" src="/static/denvernuggets.png" alt="denver">
+            <img class="team-logos" src="/static/detroitpistons.png" alt="detroit">
+            <img class="team-logos" src="/static/goldenstatewarriors.png" alt="golden state">
+            <img class="team-logos" src="/static/houstonrockets.png" alt="houston">
+            <img class="team-logos" src="/static/indianapacers.png" alt="indiana">
+            <img class="team-logos" src="/static/losangelasclippers.png" alt="la clippers">
+            <img class="team-logos" src="/static/losangelaslakers.png" alt="la lakers">
+            <img class="team-logos" src="/static/memphasgrizzlies.png" alt="memphis">
+            <img class="team-logos" src="/static/miamiheat.png" alt="miami">
+            <img class="team-logos" src="/static/milwaukeebucks.png" alt="milwaukee">
+            <img class="team-logos" src="/static/minnesotatimberwolves.png" alt="minnesota">
+            <img class="team-logos" src="/static/neworleanspelicans.png" alt="new orleans">
+            <img class="team-logos" src="/static/newyorkknicks.png" alt="new york">
+            <img class="team-logos" src="/static/okcthunder.png" alt="oklahoma city">
+            <img class="team-logos" src="/static/orlandomagic.png" alt="orlando">
+            <img class="team-logos" src="/static/philadelphia76ers.png" alt="philadelphia">
+            <img class="team-logos" src="/static/phoenixsuns.png" alt="phoenix">
+            <img class="team-logos" src="/static/portlandtrailblazers.png" alt="portland">
+            <img class="team-logos" src="/static/sacramentokings.png" alt="sacramento">
+            <img class="team-logos" src="/static/sanantoniospurs.png" alt="san antonio">
+            <img class="team-logos" src="/static/washingtonwizards.png" alt="washington">
+
+            <div class="button-links">
+                <a href="/"><button type="button" class="btn btn-danger" id="date-but">Pick a different date</button></a>
+            </div>
+        </div>
+
+        <div class="teamsPlayed">
+            <div class="winners" hidden>
+                {{winnerList}}
+            </div>
+            <div class="losers" hidden>
+                {{loserList}}
+            </div>
+        </div>
+        <h1>Conference Summary</h1>
+
+        <div class="conference-stats">
+            <div class="conf-ctn">
+                <div class="conf-1">
+                    <ul id="one">
+                        <li>Season</li>
+                        <li>Champion</li>
+                        <li>MVP</li>
+                        <li>RTY</li>
+                    </ul>
+                    <ul id="two">
+                        <li>{{conferenceStats.season}}</li>
+                        <li>{{conferenceStats.LeagueChampion}}</li>
+                        <li>{{conferenceStats.MVP}}</li>
+                        <li>{{conferenceStats.RTY}}</li>
+                        
+                    </ul>
+                </div>
+                <div class="conf-2">
+                    <ul id="three">
+                        <li>PPG</li>
+                        <li>RPG</li>
+                        <li>APG</li>
+                        <li>WS</li>
+                    </ul>
+                    <ul id="four">
+                        <li>{{conferenceStats.PPG}}</li>
+                        <li>{{conferenceStats.RPG}}</li>
+                        <li>{{conferenceStats.APG}}</li>
+                        <li>{{conferenceStats.WS}}</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <p>Season: {{conferenceStats.season}}</p>
+            <p>League Champion: {{conferenceStats.LeagueChampion}}</p>
+            <p>Most Valuable Player: {{conferenceStats.MVP}}</p>
+            <p>Rookie of the Year: {{conferenceStats.RTY}}</p>
+            <p>PPG Leader: {{conferenceStats.PPG}}</p>
+            <p>RPG Leader: {{conferenceStats.RPG}}</p>
+            <p>APG Leader: {{conferenceStats.APG}}</p>
+            <p>WS Leader: {{conferenceStats.WS}}</p> -->
+        </div>
+        <div class="conferenceCtn">
+            <div class="conferenceStatsEast">
+                {% if conferenceEast %}
+                <table class="conferenceEast">
+                    <thead>
+                        <tr>
+                            <th>Eastern Conference</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>W/L%</th>
+                            <th>GB</th>
+                            <th>PS/G</th>
+                            <th>PA/G</th>
+                            <th>SRS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for conf in conferenceEast %}
+                        <tr>
+                            <td>{{conf.conferenceTeams}}</td>
+                            <td>{{conf.wins}}</td>
+                            <td>{{conf.losses}}</td>
+                            <td>{{conf.win_losses}}</td>
+                            <td>{{conf.gb}}</td>
+                            <td>{{conf.points_game}}</td>
+                            <td>{{conf.opp_points_game}}</td>
+                            <td>{{conf.srs}}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="conferenceStatsWest">
+                {% if conferenceWest%}
+                <table class="conferenceWest">
+                    <thead>
+                        <tr>
+                            <th>Western Conference</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>W/L%</th>
+                            <th>GB</th>
+                            <th>PS/G</th>
+                            <th>PA/G</th>
+                            <th>SRS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for confW in conferenceWest %}
+                        <tr>
+                            <td>{{confW.conferenceTeams}}</td>
+                            <td>{{confW.wins}}</td>
+                            <td>{{confW.losses}}</td>
+                            <td>{{confW.win_losses}}</td>
+                            <td>{{confW.gb}}</td>
+                            <td>{{confW.points_game}}</td>
+                            <td>{{confW.opp_points_game}}</td>
+                            <td>{{confW.srs}}</td>
+                        </tr>
+                        {% endfor %}
+                {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="conferenceStatsOld">
+            {% if conferenceOld %}
+            <table class="conferenceOld">
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th>W</th>
+                        <th>L</th>
+                        <th>W/L%</th>
+                        <th>GB</th>
+                        <th>PS/G</th>
+                        <th>PA/G</th>
+                        <th>SRS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for old in conferenceOld %}
+                    <tr>
+                        <td>{{old.conferenceTeams}}</td>
+                        <td>{{old.wins}}</td>
+                        <td>{{old.losses}}</td>
+                        <td>{{old.win_losses}}</td>
+                        <td>{{old.gb}}</td>
+                        <td>{{old.points_game}}</td>
+                        <td>{{old.opp_points_game}}</td>
+                        <td>{{old.srs}}</td>
+                    </tr>
+                    {% endfor %}
+            {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/stats.js')}}"></script>
+<!-- <script src="{{ url_for('static', filename='js/get_data.js')}}"></script> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+
+{% endblock %}

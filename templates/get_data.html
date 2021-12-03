@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/get_data.css')}}">
+
+
+{% endblock %}
+
+{% block body %}
+
+<!-- <div class="ctn"> -->
+    <div class="data">
+        <h2>{{date}}</h2>
+    </div>
+
+    <div class="teams">
+        <div class="logos">
+            <img class="team-logos" src="/static/torontoraptors.png" alt = "toronto">
+            <img class="team-logos" src="/static/utahjazz.png" alt="utah">
+            <img class="team-logos" src="/static/atlantahawks.png" alt="atlanta">
+            <img class="team-logos" src="/static/bostonceltics.png" alt="boston">
+            <img class="team-logos" src="/static/brooklynnets.png" alt="brooklyn">
+            <img class="team-logos" src="/static/charlottehornets.png" alt="charlotte">
+            <img class="team-logos" src="/static/chicagobulls.png" alt="chicago">
+            <img class="team-logos" src="/static/clevelandcavaliers.png" alt="cleveland">
+            <img class="team-logos" src="/static/dallasmavericks.png" alt="dallas">
+            <img class="team-logos" src="/static/denvernuggets.png" alt="denver">
+            <img class="team-logos" src="/static/detroitpistons.png" alt="detroit">
+            <img class="team-logos" src="/static/goldenstatewarriors.png" alt="golden state">
+            <img class="team-logos" src="/static/houstonrockets.png" alt="houston">
+            <img class="team-logos" src="/static/indianapacers.png" alt="indiana">
+            <img class="team-logos" src="/static/losangelasclippers.png" alt="la clippers">
+            <img class="team-logos" src="/static/losangelaslakers.png" alt="la lakers">
+            <img class="team-logos" src="/static/memphasgrizzlies.png" alt="memphis">
+            <img class="team-logos" src="/static/miamiheat.png" alt="miami">
+            <img class="team-logos" src="/static/milwaukeebucks.png" alt="milwaukee">
+            <img class="team-logos" src="/static/minnesotatimberwolves.png" alt="minnesota">
+            <img class="team-logos" src="/static/neworleanspelicans.png" alt="new orleans">
+            <img class="team-logos" src="/static/newyorkknicks.png" alt="new york">
+            <img class="team-logos" src="/static/okcthunder.png" alt="oklahoma city">
+            <img class="team-logos" src="/static/orlandomagic.png" alt="orlando">
+            <img class="team-logos" src="/static/philadelphia76ers.png" alt="philadelphia">
+            <img class="team-logos" src="/static/phoenixsuns.png" alt="phoenix">
+            <img class="team-logos" src="/static/portlandtrailblazers.png" alt="portland">
+            <img class="team-logos" src="/static/sacramentokings.png" alt="sacramento">
+            <img class="team-logos" src="/static/sanantoniospurs.png" alt="san antonio">
+            <img class="team-logos" src="/static/washingtonwizards.png" alt="washington">
+
+            <div class="button-links">
+                <a href="/"><button type="button" class="btn btn-danger" id="date-but">Pick a different date</button></a>
+                <a> <button type="button" class="btn btn-danger" id="game-but" onclick="back1()">Pick a different team</button></a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="teamsPlayed">
+        <div class="winners" hidden>
+            {{winnerList}}
+        </div>
+        <div class="losers" hidden>
+            {{loserList}}
+        </div>
+    </div>
+
+    <div class="game-link">
+        {{lastGame}}
+    </div>
+
+
+    <div class="boxScore-ctn">
+
+        <div class="boxscore2">
+            <table class="teamTable" id="table2">
+                <thead>
+                    <tr>
+                        <th class="teamStat">Team</th>
+                        <th class="player">Player</th>
+                        <th class="mp">MP</th>
+                        <th class="fg">FG</th>
+                        <th class="fga">FGA</th>
+                        <th class="fgP">FG%</th>
+                        <th class="threep">3P</th>
+                        <th class="threePA">3PA</th>
+                        <th class="threePP">3P%</th>
+                        <th class="ft">FT</th>
+                        <th class="fta">FTA</th>
+                        <th class="ftP">FT%</th>
+                        <th class="orb">ORB</th>
+                        <th class="drb">DRB</th>
+                        <th class="trb">TRB</th>
+                        <th class="ast">AST</th>
+                        <th class="stl">STL</th>
+                        <th class="blk">BLK</th>
+                        <th class="tov">TOV</th>
+                        <th class="pf">PF</th>
+                        <th class="pts">PTS</th>
+                        <th class="ratio">+/-</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stat2 in stats2 %}
+                    <tr>
+                        <td>{{stat2.team3}}</td>
+                        <td>{{stat2.starters3}}</td>
+                        <td>{{stat2.mp3}}</td>
+                        <td>{{stat2.fg3}}</td>
+                        <td>{{stat2.fga3}}</td>
+                        <td>{{stat2.fg_pct3}}</td>
+                        <td>{{stat2.fg33}}</td>
+                        <td>{{stat2.fg3a3}}</td>
+                        <td>{{stat2.fg3_pct3}}</td>
+                        <td>{{stat2.ft3}}</td>
+                        <td>{{stat2.fta3}}</td>
+                        <td>{{stat2.ft_pct3}}</td>
+                        <td>{{stat2.orb3}}</td>
+                        <td>{{stat2.drb3}}</td>
+                        <td>{{stat2.trb3}}</td>
+                        <td>{{stat2.ast3}}</td>
+                        <td>{{stat2.stl3}}</td>
+                        <td>{{stat2.blk3}}</td>
+                        <td>{{stat2.tov3}}</td>
+                        <td>{{stat2.pf3}}</td>
+                        <td>{{stat2.pts3}}</td>
+                        <td>{{stat2.plus_minus3}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="boxScore">
+            <table class="teamTable" id="table1">
+                <thead>
+                    <tr>
+                        <th class="teamStat">Team</th>
+                        <th class="player">Player</th>
+                        <th class="mp">MP</th>
+                        <th class="fg">FG</th>
+                        <th class="fga">FGA</th>
+                        <th class="fgP">FG%</th>
+                        <th class="threep">3P</th>
+                        <th class="threePA">3PA</th>
+                        <th class="threePP">3P%</th>
+                        <th class="ft">FT</th>
+                        <th class="fta">FTA</th>
+                        <th class="ftP">FT%</th>
+                        <th class="orb">ORB</th>
+                        <th class="drb">DRB</th>
+                        <th class="trb">TRB</th>
+                        <th class="ast">AST</th>
+                        <th class="stl">STL</th>
+                        <th class="blk">BLK</th>
+                        <th class="tov">TOV</th>
+                        <th class="pf">PF</th>
+                        <th class="pts">PTS</th>
+                        <th class="ratio">+/-</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stat in stats %}
+                    <tr>
+                        <td>{{stat.team}}</td>
+                        <td>{{stat.starters1}}</td>
+                        <td>{{stat.mp1}}</td>
+                        <td>{{stat.fg1}}</td>
+                        <td>{{stat.fga1}}</td>
+                        <td>{{stat.fg_pct1}}</td>
+                        <td>{{stat.fg31}}</td>
+                        <td>{{stat.fg3a1}}</td>
+                        <td>{{stat.fg3_pct1}}</td>
+                        <td>{{stat.ft1}}</td>
+                        <td>{{stat.fta1}}</td>
+                        <td>{{stat.ft_pct1}}</td>
+                        <td>{{stat.orb1}}</td>
+                        <td>{{stat.drb1}}</td>
+                        <td>{{stat.trb1}}</td>
+                        <td>{{stat.ast1}}</td>
+                        <td>{{stat.stl1}}</td>
+                        <td>{{stat.blk1}}</td>
+                        <td>{{stat.tov1}}</td>
+                        <td>{{stat.pf1}}</td>
+                        <td>{{stat.pts1}}</td>
+                        <td>{{stat.plus_minus1}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="quarterScore1" hidden>
+            {% for s in score2 %}
+                <span id="team1">{{s.team}}</span>
+                <span id="first1">{{s.first}}</span>
+                <span id="second1">{{s.second}}</span>
+                <span id="third1">{{s.third}}</span>
+                <span id="fourth1">{{s.fourth}}</span>
+            {% endfor %}
+        </div>
+
+        <div class="quarterScore2" hidden>
+            {% for ss in score %}
+                <span id="team2">{{ss.team}}</span>
+                <span id="first2">{{ss.first}}</span>
+                <span id="second2">{{ss.second}}</span>
+                <span id="third2">{{ss.third}}</span>
+                <span id="fourth2">{{ss.fourth}}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="line-graph">
+        <canvas id="lineChart">
+        </canvas>
+    </div>
+    
+<!-- </div> -->
+<!-- <script src="{{ url_for('static', filename='js/stats.js')}}"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="{{ url_for('static', filename='js/get_data.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+{% endblock %}

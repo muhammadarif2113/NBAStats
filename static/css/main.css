@@ -1,0 +1,390 @@
+body, html{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: antiquewhite;
+}
+
+
+header{
+    width: 100%;
+    background-color: rgb(212, 1, 1);
+    height: 80px;
+    color: white; 
+}
+
+header h1{
+    line-height: 80px;
+    text-align: center;
+}
+
+
+.btn{
+    border: 1px solid black;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin: 0 1% 0 1%;
+}
+
+*, 
+*:before, 
+*:after{
+    padding: 0; 
+    margin: 0;
+    box-sizing: border-box; 
+}
+
+::-webkit-calendar-picker-indicator{
+    background-color: #ffffff;
+    padding: 5px; 
+    cursor: pointer; 
+    border-radius: 3px;
+}
+
+.date{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 20%; 
+    left: 50%; 
+    font-family: "Roboto Mono", monospace;
+    color: #ffffff; 
+    font-size: 18px; 
+    height: 120px;
+    border: none; 
+    outline: none;
+}
+
+input[type="date"]{
+    background-color: #0080ff;
+    padding: 15px; 
+    font-family: "Roboto Mono", monospace;
+    color: #ffffff; 
+    font-size: 18px; 
+    border: none;
+    border-radius: 5px;
+}
+input[type="submit"]{
+    position: absolute;
+    top: 70%; 
+    left: 25%; 
+}
+.data{
+    text-align: center;
+    color: white;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+.logos img{
+    border: 2px solid red;
+    background-color: white;
+    margin: 10px 0px 10px 10px;
+    opacity: 0.40;
+    visibility: visible;
+    /* display: block; */
+    transition: .3s ease; 
+    z-index: -1; 
+}
+
+.teams{
+    width: 100%;
+}
+.logos{
+    width: 95%;
+    text-align: center;
+    margin-left: 2%;
+}
+#game-but{
+    visibility: visible;
+}
+.team-logos{
+    height: 100px;
+    width: 100px;
+    z-index: -1;
+
+}
+
+.boxscore, .boxscore2{
+    width: 50px;
+    height: 50px;
+}
+
+/* .boxscore, .boxscore2, .boxscore-ctn{
+    width: 20%;
+    height: 20%; 
+    min-width: 30px;
+} */
+
+/* .boxscore{
+    visibility: hidden;
+} */
+
+.winners, .losers{
+    text-align: center;
+}
+
+/* .teamTable{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden; 
+
+}
+
+.teamTable thead tr {
+    background-color: blue;
+    color: white; 
+    text-align: left;
+    font-weight: bold;
+}
+
+.teamTable th, 
+.teamTable td{
+    padding: 10px 12px; 
+}
+
+.teamTable tbody tr{
+    border-bottom: 1px solid #ff3131;
+    border-right: 2px solid blue;
+    border-left: 2px solid blue;
+
+}
+
+.teamTable tbody tr:nth-of-type(even){
+    background-color: #ffbdbd;
+}
+
+.teamTable tbody tr:last-of-type{
+    border-bottom: 2px solid blue;
+} */
+h1{
+    text-align: center; 
+}
+.ctn{
+    width: 100%;
+    height: 100%;
+}
+.conference-stats{
+    background-color: black;
+    margin-top: 30px;
+    color: white; 
+    border: 1px solid white; 
+}
+.conference-stats li{
+    border: 1px solid white; 
+    border-bottom: none;
+    list-style-type: none;
+}
+
+@media(max-width: 1277px){
+    #four li{
+        height: 49px; 
+    }
+}
+.conf-ctn{
+    display: flex;
+    text-align: center;
+}
+
+.conf-1, .conf-2{
+    width: 50%;
+}
+
+.conf-1 ul, .conf-2 ul{
+    display: flex;
+}
+
+#one li, #two li, #three li, #four li{
+    width: 25%;
+}
+
+#two, #four{
+    font-weight: bold;
+}
+
+@media(max-width: 900px){
+    .conf-1{
+        width: 100%;
+        /* border-bottom: 1px solid black; */
+    }
+    .conf-2{
+        width: 100%;
+    }
+
+    .conf-ctn{
+        display: inline;
+    }
+    .conference-stats li{
+        border: none;
+    }
+
+    #one li, #three li{
+        border-right: 1px solid white;
+        padding: 10px;
+    }
+    #two li, #four li{
+        border-right: 1px solid white;
+        border-bottom: 1px solid white;
+        align-items: center;
+        padding: 0 0 10px 0;
+    }
+
+} 
+
+.conference-stats ul{
+    /* display: flex; */
+    padding: 0;
+    margin: 0;
+}
+
+.conferenceCtn{
+    /* display: flex; */
+    margin: 50px 0 0 0;
+    width: 100%;
+    /* min-width: 895px; */
+
+}
+
+.conferenceStatsEast, .conferenceStatsWest{
+    width: 50%;
+    min-width: 450px;
+}
+.conferenceStatsOld{
+    width: 100%;
+    min-width: 450px;
+}
+
+
+.conferenceEast, .conferenceWest, .conferenceOld{
+    margin: 15px 0;
+    font-size: 0.9em;
+    border-radius: 5px 5px 0 0;
+    overflow-x: auto;
+    width: 60%;
+    margin: 0 auto;
+    min-width: 444px;
+    border-bottom: 2px solid blue;
+
+}
+
+.conferenceOld{
+    max-width: 1200px;
+}
+
+.conferenceEast thead tr {
+    height: 10px;
+    background-color: blue;
+    color: white; 
+    text-align: left;
+    font-weight: bold;
+    border: 2px solid blue;;
+}
+
+.conferenceEast th, 
+.conferenceEast td{
+    padding: 2px 4px; 
+    text-align: center;
+}
+
+.conferenceEast tbody tr{
+    border-bottom: 1px solid #ff3131;
+    border-right: 2px solid blue;
+    border-left: 2px solid blue;
+
+}
+
+.conferenceEast tbody tr:nth-of-type(even){
+    background-color: rgb(255, 195, 185);
+}
+
+.conferenceEast tbody tr:first-of-type{
+    font-weight: bold;
+
+} 
+
+
+
+
+.conferenceWest thead tr {
+    height: 10px;
+    background-color: blue;
+    color: white; 
+    text-align: left;
+    font-weight: bold;
+    border: 2px solid blue;;
+}
+
+.conferenceWest th, 
+.conferenceWest td{
+    padding: 2px 4px; 
+    text-align: center;
+}
+
+
+
+.conferenceWest tbody tr{
+    border-bottom: 1px solid #ff3131;
+    border-right: 2px solid blue;
+    border-left: 2px solid blue;
+}
+
+.conferenceWest tbody tr:nth-of-type(even){
+    background-color: rgb(255, 195, 185);
+}
+
+.conferenceWest tbody tr:first-of-type{
+    font-weight: bold;
+
+} 
+
+@media(min-width: 900px){
+    .conferenceCtn{
+        display: flex;
+        justify-content: space-around; 
+    }
+}
+
+@media(max-width: 900px){
+    .conferenceStatsEast, .conferenceStatsWest{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .conferenceEast, .conferenceWest{
+        width: 80%;
+    }
+
+}
+
+.conferenceOld thead tr {
+    height: 10px;
+    background-color: blue;
+    color: white; 
+    text-align: left;
+    font-weight: bold;
+    border: 2px solid blue;;
+}
+
+.conferenceOld th, 
+.conferenceOld td{
+    padding: 2px 4px; 
+    text-align: center;
+}
+
+.conferenceOld tbody tr{
+    border-bottom: 1px solid #ff3131;
+    border-right: 2px solid blue;
+    border-left: 2px solid blue;
+
+}
+
+.conferenceOld tbody tr:nth-of-type(even){
+    background-color: rgb(255, 195, 185);
+}
+
+.conferenceOld tbody tr:first-of-type{
+    font-weight: bold;
+
+} 
+
+
