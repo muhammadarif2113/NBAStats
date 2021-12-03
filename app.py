@@ -27,12 +27,12 @@ ENV = 'prod'
 
 if ENV == 'dev':
     app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@127.0.0.1/NBAStatss'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@127.0.0.1/NBAStatsProd'
     # 'sqlite:///NBAStatss.db'
 
 else: 
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://dupcjiwqfuwbqt:3453adfeb53211a0f64d13bc32263c6c31fa04e4e2b29354947294c4ee63f982@ec2-3-95-130-249.compute-1.amazonaws.com:5432/dfka390kr9p6il'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgre://dupcjiwqfuwbqt:3453adfeb53211a0f64d13bc32263c6c31fa04e4e2b29354947294c4ee63f982@ec2-3-95-130-249.compute-1.amazonaws.com:5432/dfka390kr9p6il'
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
