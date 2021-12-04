@@ -23,16 +23,17 @@ from werkzeug.datastructures import ContentSecurityPolicy
 
 app = Flask(__name__)
 
-ENV = 'dev'
+ENV = 'prod'
 
 if ENV == 'dev':
     app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@127.0.0.1/NBAStatsProd'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@127.0.0.1/NBAStatsPost'
     # 'sqlite:///NBAStatss.db'
 
 else: 
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dupcjiwqfuwbqt:3453adfeb53211a0f64d13bc32263c6c31fa04e4e2b29354947294c4ee63f982@ec2-3-95-130-249.compute-1.amazonaws.com:5432/dfka390kr9p6il'
+    app.config['SQLALCHEMY_DATABASE_URI']= 'postgres://evtzswwsvlsdkn:0f34727497bc308db99af06a17964f9656c9501cbd0cba73034e43051cfba215@ec2-34-202-54-225.compute-1.amazonaws.com:5432/dag57m5ebejfbj'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dupcjiwqfuwbqt:3453adfeb53211a0f64d13bc32263c6c31fa04e4e2b29354947294c4ee63f982@ec2-3-95-130-249.compute-1.amazonaws.com:5432/dfka390kr9p6il'
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -127,7 +128,7 @@ class QuarterTeam2(db.Model):
 
 class ConferenceTitles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    season = db.Column(db.Integer, nullable=False)
+    season = db.Column(db.String(200), nullable=False)
     LeagueChampion = db.Column(db.String(200), nullable=False)
     MVP = db.Column(db.String(200), nullable=False)
     RTY = db.Column(db.String(200), nullable=False)
