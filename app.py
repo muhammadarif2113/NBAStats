@@ -1,9 +1,10 @@
-from enum import Flag
+# from enum import Flag
 from os import P_PGID, RTLD_LAZY
-from flask import Flask, render_template, url_for, request, jsonify, make_response, redirect, session, g
+from flask import Flask, render_template, request, session
+# from flask import Flask, render_template, url_for, request, jsonify, make_response, redirect, session, g
 import flask
-from flask.signals import _FakeSignal
-from flask.templating import render_template_string
+# from flask.signals import _FakeSignal
+# from flask.templating import render_template_string
 from flask_sqlalchemy import SQLAlchemy
 from bs4 import BeautifulSoup 
 from bs4 import Comment
@@ -14,7 +15,7 @@ from sqlalchemy.sql import select
 from sqlalchemy import func
 import requests
 # import pandas as pd
-from tabulate import tabulate
+# from tabulate import tabulate
 import re
 # import itertools
 import time 
