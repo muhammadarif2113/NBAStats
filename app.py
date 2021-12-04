@@ -10,13 +10,13 @@ from bs4 import Comment
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime
 from sqlalchemy.sql import select
-from datetime import date
+# from datetime import date
 from sqlalchemy import func
 import requests
-import pandas as pd
+# import pandas as pd
 from tabulate import tabulate
 import re
-import itertools
+# import itertools
 import time 
 
 from werkzeug.datastructures import ContentSecurityPolicy
