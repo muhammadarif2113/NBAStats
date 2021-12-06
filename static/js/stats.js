@@ -253,12 +253,12 @@ function sendData(team){
         // if(chosenTeamCodes.length > 0){
             // const URL = window.location.search
             const URL = 'stats/data'; 
-            console.log(URL)
             const xhr = new XMLHttpRequest()
             sender = JSON.stringify(chosenTeamCodes)
                 // sender = chosenTeamCodes
             console.log('teams sent')
             xhr.open('POST', URL); 
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send(sender);
 
             // xhr.onload = function(){
