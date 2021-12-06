@@ -251,8 +251,8 @@ function sendData(team){
         console.log(chosenTeamCodes)
 
         // if(chosenTeamCodes.length > 0){
-            // const URL = window.location.search
-            const URL = '?date=2021-12-01'
+            const URL = window.location.search
+            // const URL = '?date=2021-12-01'
             console.log(URL); 
             // const URL = 'stats/data'; 
             // const URL = 'stats?date=2021-12-01'
