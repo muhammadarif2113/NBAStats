@@ -260,6 +260,7 @@ function sendData(team){
             xhr.open('POST', URL); 
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send(sender);
+            window.location.replace("https://nbagamescores.herokuapp.com/stats/data"); 
 
             // xhr.onload = function(){
 
