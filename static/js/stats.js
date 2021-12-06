@@ -252,7 +252,7 @@ function sendData(team){
 
         // if(chosenTeamCodes.length > 0){
             // const URL = window.location.search
-            const URL = 'nbagamescores.herokuapp.com/stats/data'; 
+            const URL = 'stats/data'; 
             console.log(URL)
             const xhr = new XMLHttpRequest()
             sender = JSON.stringify(chosenTeamCodes)
