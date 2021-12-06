@@ -254,13 +254,17 @@ function sendData(team){
             // const URL = window.location.search
             const URL = 'stats/data'; 
             const xhr = new XMLHttpRequest()
-            sender = JSON.stringify(chosenTeamCodes)
+            xml.onload = function(){
+                sender = JSON.stringify(chosenTeamCodes)
+
+            }
+            // sender = JSON.stringify(chosenTeamCodes)
                 // sender = chosenTeamCodes
             console.log('teams sent')
             xhr.open('POST', URL); 
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send(sender);
-            window.location.replace("https://nbagamescores.herokuapp.com/stats/data"); 
+            // window.location.replace("https://nbagamescores.herokuapp.com/stats/data"); 
 
             // xhr.onload = function(){
 
