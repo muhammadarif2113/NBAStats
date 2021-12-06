@@ -556,7 +556,7 @@ def stats():
 
 @app.route('/stats/data', methods=['GET', 'POST'])
 def get_data():
-    # time.sleep(2)
+    time.sleep(2)
     date = session["date"]
     winnerList = session["winnerList"]
     loserList = session["loserList"]
@@ -594,4 +594,4 @@ def get_data():
 if __name__ == "__main__":
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run()
+    app.run(debug=True)
