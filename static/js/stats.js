@@ -254,7 +254,7 @@ function sendData(team){
             // const URL = window.location.search
             const URL = 'stats/data'; 
             const xhr = new XMLHttpRequest()
-            xml.onload = function(){
+            xhr.onload = function(){
                 sender = JSON.stringify(chosenTeamCodes)
 
             }
