@@ -51,7 +51,7 @@ const chart = document.getElementById("lineChart");
 
 // const team11 = document.querySelector("#team1").innerHTML; 
 
-const team11 = document.getElementsById("team1");
+const team11 = document.getElementById("team1");
 var firstQ1 = document.getElementById("first1").innerHTML; 
 var secondQ1 = document.getElementById("second1").innerHTML; 
 var thirdQ1 = document.getElementById("third1").innerHTML; 
@@ -65,7 +65,7 @@ fourthQ1 = parseInt(fourthQ1)
 
 // const team22 = document.querySelector("#team2").innerHTML; 
 
-const team22 = document.getElementsById("team2");
+const team22 = document.getElementById("team2");
 var firstQ2 = document.getElementById("first2").innerHTML; 
 var secondQ2 = document.getElementById("second2").innerHTML; 
 var thirdQ2 = document.getElementById("third2").innerHTML; 
