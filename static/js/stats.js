@@ -258,7 +258,7 @@ function sendData(team){
             sender = JSON.stringify(chosenTeamCodes)
                 // sender = chosenTeamCodes
             console.log('teams sent')
-            xhr.open('POST', URL); 
+            xhr.open('POST', 'app.py'); 
             xhr.send(sender);
 
             // xhr.onload = function(){
