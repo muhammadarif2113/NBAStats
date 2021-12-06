@@ -252,8 +252,8 @@ function sendData(team){
 
         // if(chosenTeamCodes.length > 0){
             // const URL = window.location.search
-            // const URL = 'stats/data'; 
-            const URL = 'stats?date=2021-12-01'
+            const URL = 'stats/data'; 
+            // const URL = 'stats?date=2021-12-01'
             const xhr = new XMLHttpRequest()
             // xhr.onload = function(){
                 sender = JSON.stringify(chosenTeamCodes)
