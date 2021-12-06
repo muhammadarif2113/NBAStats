@@ -251,24 +251,24 @@ function sendData(team){
         console.log(chosenTeamCodes)
 
         // if(chosenTeamCodes.length > 0){
-            // const URL = window.location.search
-            const URL = 'stats/data'; 
+            const URL = window.location.search
+            // const URL = 'stats/data'; 
             const xhr = new XMLHttpRequest()
             // xhr.onload = function(){
                 sender = JSON.stringify(chosenTeamCodes)
 
-                console.log('teams sent')
-                xhr.open('POST', URL); 
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhr.send(sender);
+            //     console.log('teams sent')
+            //     xhr.open('POST', URL); 
+            //     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            //     xhr.send(sender);
 
             // }
             // sender = JSON.stringify(chosenTeamCodes)
                 // sender = chosenTeamCodes
             console.log('teams sent')
-            // xhr.open('POST', URL); 
+            xhr.open('POST', URL); 
             // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            // xhr.send(sender);
+            xhr.send(sender);
             // window.location.replace("https://nbagamescores.herokuapp.com/stats/data"); 
 
         // } 
