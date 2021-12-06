@@ -556,7 +556,8 @@ def stats():
 
 @app.route('/stats/data', methods=['GET', 'POST'])
 def get_data():
-    time.sleep(2)
+    if request.method =="POST":
+        time.sleep(2)
     date = session["date"]
     winnerList = session["winnerList"]
     loserList = session["loserList"]
@@ -581,11 +582,11 @@ def get_data():
     for l in lastRowOther:
         gameCountArryOther.append(l.rowCount)
     lastCountOther = gameCountArryOther[-1]
-
-    stats = Stats.query.filter_by(gameLink=lastGame).limit(lastCount).all()
-    stats2 = Stats2.query.filter_by(gameLink3=lastGame).limit(lastCountOther).all()
-    score = QuarterTeam1.query.filter_by(gameLink=lastGame).all()
-    score2 = QuarterTeam2.query.filter_by(gameLink=lastGame).all()
+    if request.method == 'GET': 
+        stats = Stats.query.filter_by(gameLink=lastGame).limit(lastCount).all()
+        stats2 = Stats2.query.filter_by(gameLink3=lastGame).limit(lastCountOther).all()
+        score = QuarterTeam1.query.filter_by(gameLink=lastGame).all()
+        score2 = QuarterTeam2.query.filter_by(gameLink=lastGame).all()
 
 
     return render_template("get_data.html", lastGame=lastGame, stats = stats, stats2=stats2, score=score, score2=score2, date=date, winnerList=winnerList, loserList=loserList)
