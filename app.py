@@ -24,7 +24,7 @@ from werkzeug.datastructures import ContentSecurityPolicy
 
 app = Flask(__name__)
 
-ENV = 'dev'
+ENV = 'prod'
 
 if ENV == 'dev':
     app.debug = True
@@ -556,7 +556,7 @@ def stats():
 
 @app.route('/stats/data', methods=['GET', 'POST'])
 def get_data():
-    time.sleep(2)
+    # time.sleep(2)
     date = session["date"]
     winnerList = session["winnerList"]
     loserList = session["loserList"]
