@@ -189,7 +189,7 @@
             </table>
         </div>
         
-        <div class="quarterScore1">
+        <div class="quarterScore1" hidden>
             {% for s in score2 %}
                 <span id="team1">{{s.team}}</span>
                 <span id="first1">{{s.first}}</span>
@@ -199,7 +199,7 @@
             {% endfor %}
         </div>
 
-        <div class="quarterScore2">
+        <div class="quarterScore2" hidden> 
             {% for ss in score %}
                 <span id="team2">{{ss.team}}</span>
                 <span id="first2">{{ss.first}}</span>
