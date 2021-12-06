@@ -254,7 +254,7 @@ function sendData(team){
             // const URL = window.location.search
             const URL = 'stats/data'; 
             const xhr = new XMLHttpRequest()
-            xhr.onload = function(){
+            // xhr.onload = function(){
                 sender = JSON.stringify(chosenTeamCodes)
 
                 console.log('teams sent')
@@ -262,7 +262,7 @@ function sendData(team){
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhr.send(sender);
 
-            }
+            // }
             // sender = JSON.stringify(chosenTeamCodes)
                 // sender = chosenTeamCodes
             console.log('teams sent')
