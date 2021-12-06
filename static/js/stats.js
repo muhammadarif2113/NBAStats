@@ -257,18 +257,20 @@ function sendData(team){
             xhr.onload = function(){
                 sender = JSON.stringify(chosenTeamCodes)
 
+                console.log('teams sent')
+                xhr.open('POST', URL); 
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(sender);
+
             }
             // sender = JSON.stringify(chosenTeamCodes)
                 // sender = chosenTeamCodes
             console.log('teams sent')
-            xhr.open('POST', URL); 
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send(sender);
+            // xhr.open('POST', URL); 
+            // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // xhr.send(sender);
             // window.location.replace("https://nbagamescores.herokuapp.com/stats/data"); 
 
-            // xhr.onload = function(){
-
-            // }
         // } 
     }
     // }
