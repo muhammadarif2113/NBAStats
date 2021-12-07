@@ -80,8 +80,10 @@ header h1{
 
 .data h2{
     line-height: 60px;
-    font-size: 38px;
-    font-family:fantasy;
+    font-size: 33px;
+    /* font-family:fantasy; */
+    font-family: "Lucida Console", Courier, monospace;
+    font-weight: 600;
 
 }
 
