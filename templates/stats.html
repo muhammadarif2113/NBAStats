@@ -2,9 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
-<!-- <header>
-    <h1>{{date}}</h1>
-</header> -->
+
 
 {% endblock %}
 
@@ -16,24 +14,18 @@
     </div>
 
     <div class="teams">
-        <!-- <div class="marquee">
-            <ul class="marquee-content">
-                <li id="slide1"></li>
-                <li id="slide2"></li>
-                <li id="slide3"></li>
-                <li id="slide4"></li>
-                <li id="slide5"></li>
-
-                <li id="slide6"></li>
-            </ul>
-        </div> -->
+        {% if gamesPlayedStr %}
+            <h2 id="no-games">No Games Played on this date</h2>
+        {% endif %}
         <div class="logos">
             <img class="team-logos" src="/static/torontoraptors.png" alt = "toronto">
             <img class="team-logos" src="/static/utahjazz.png" alt="utah">
             <img class="team-logos" src="/static/atlantahawks.png" alt="atlanta">
             <img class="team-logos" src="/static/bostonceltics.png" alt="boston">
             <img class="team-logos" src="/static/brooklynnets.png" alt="brooklyn">
+            <img class="team-logos" src="/static/newjerseynets.png" alt="new jersey">
             <img class="team-logos" src="/static/charlottehornets.png" alt="charlotte">
+            <img class="team-logos" src="/static/charlottebobcats.png" alt="charlotteOld">
             <img class="team-logos" src="/static/chicagobulls.png" alt="chicago">
             <img class="team-logos" src="/static/clevelandcavaliers.png" alt="cleveland">
             <img class="team-logos" src="/static/dallasmavericks.png" alt="dallas">
@@ -45,12 +37,15 @@
             <img class="team-logos" src="/static/losangelasclippers.png" alt="la clippers">
             <img class="team-logos" src="/static/losangelaslakers.png" alt="la lakers">
             <img class="team-logos" src="/static/memphasgrizzlies.png" alt="memphis">
+            <img class="team-logos" src="/static/vancouvergrizzlies.png" alt="vancouver">
             <img class="team-logos" src="/static/miamiheat.png" alt="miami">
             <img class="team-logos" src="/static/milwaukeebucks.png" alt="milwaukee">
             <img class="team-logos" src="/static/minnesotatimberwolves.png" alt="minnesota">
             <img class="team-logos" src="/static/neworleanspelicans.png" alt="new orleans">
+            <img class="team-logos" src="/static/neworleanshornets.png" alt="new orleansOld">
             <img class="team-logos" src="/static/newyorkknicks.png" alt="new york">
             <img class="team-logos" src="/static/okcthunder.png" alt="oklahoma city">
+            <img class="team-logos" src="/static/seattlesonics.png" alt="seattle">
             <img class="team-logos" src="/static/orlandomagic.png" alt="orlando">
             <img class="team-logos" src="/static/philadelphia76ers.png" alt="philadelphia">
             <img class="team-logos" src="/static/phoenixsuns.png" alt="phoenix">
@@ -61,17 +56,23 @@
 
             <div class="button-links">
                 <a href="/"><button type="button" class="btn btn-danger" id="date-but">Pick a different date</button></a>
-                <a href="/stats/data"><button type="button" class="btn btn-danger" id="date-but">See Game Data</button></a>
+                <a href="/stats/data"><button type="button" class="btn btn-danger" id="date-but2">See Game Data</button></a>
 
             </div>
         </div>
 
-        <div class="teamsPlayed">
-            <div class="winners" hidden>
+        <div class="teamsPlayed" hidden>
+            <div class="winners">
                 {{winnerList}}
             </div>
-            <div class="losers" hidden>
+            <div class="losers">
                 {{loserList}}
+            </div>
+            <div class="winnerCode">
+                {{winnerCode}}
+            </div>
+            <div class="loserCode">
+                {{loserCode}}
             </div>
         </div>
         <h1>Conference Summary</h1>

@@ -339,6 +339,9 @@ def stats():
 
     result = requests.get(url)
     doc = BeautifulSoup(result.text, "html.parser")
+    gamesPlayed = doc.find_all(text="No games played on this date.")
+    gamesPlayedStr = gamesPlayed
+    
     # getBoxLinks = doc.find_all('td', {'class':'right gamelink'})
     getTeams = doc.find_all('table', class_="teams")
     winnerList = [] #all teams that won that day
@@ -348,6 +351,8 @@ def stats():
     boxscoreLink = [] #full link of chosen team box score
     teamsChosen = [] 
     table = []
+    winnerCode = []
+    loserCode = []
 
     information = request.data.decode("utf-8")
     print(information)
@@ -355,12 +360,16 @@ def stats():
     for t in range(len(getTeams)): # get team codes
             for row in getTeams[t].find_all('tr', class_="winner"):
                 winners = row.find_all("a")
+                # print(winners)
+                winnerCode.append(winners)
                 winnerList.append(winners[0].text)
                 win = row.find_all("a", href=re.compile('boxscores'))
                 if(len(win) > 0):
                     gameLinks.append(win)
             for row in getTeams[t].find_all('tr', class_="loser"):
                 losers = row.find_all("a")
+                # print(losers)
+                loserCode.append(losers)
                 loserList.append(losers[0].text)
                 los = row.find_all("a", href=re.compile('boxscores'))
                 if(len(los) > 0):
@@ -372,6 +381,30 @@ def stats():
             teamCodes.append(stringGames[0])
     session["winnerList"] = winnerList
     session["loserList"] = loserList
+    year = year + 1
+    year = str(year) #to get the code of teams only
+    print(year)
+    winCode = []
+    loseCode = []
+    for win in range(len(winnerCode)):
+        winTeam = winnerCode[win]
+        winTeam = str(winTeam)
+        print('--------------------------------------------')
+        print(winTeam)
+        print('===========================================')
+        winCodeFormat = re.search("/teams/(.*?)/{}".format(year), winTeam)
+        print(winCodeFormat)
+        singleWin = winCodeFormat.group(1)
+        winCode.append(singleWin)
+    
+    for lose in range(len(loserCode)):
+        loseTeam = loserCode[lose]
+        loseTeam = str(loseTeam)
+        loseCodeFormat = re.search("/teams/(.*?)/{}".format(year), loseTeam)
+        singleLose = loseCodeFormat.group(1)
+        loseCode.append(singleLose)
+
+        
     # time = datetime.now() 
     # timeFormat = time.strftime("%d/%m/%Y, %H:%M:%S")
     # session["timeFormat"] = timeFormat
@@ -397,10 +430,11 @@ def stats():
                 session["gameCode"] = teamCodes[code]
                 link = 'https://www.basketball-reference.com' + teamCodes[code]
                 boxscoreLink.append(link)
+            # print(boxscoreLink)
                 # insertGame = Game(code=teamCodes[code])
         # print(teamCodes[code])
         boxscoreLinkStr = ' '.join(boxscoreLink)
-        print(boxscoreLinkStr)
+        # print(boxscoreLink)
         insertGame = Game(code=boxscoreLinkStr)
         db.session.add(insertGame)
         db.session.commit()
@@ -551,7 +585,7 @@ def stats():
         conferenceEast = EasternConference.query.filter_by(seasonStats=season).limit(counterEast).all()
         conferenceWest = WesternConference.query.filter_by(seasonStats=season).limit(counterWest).all()
 
-        return render_template('stats.html', date=date, winnerList=winnerList, loserList=loserList, conferenceStats=conferenceStats, conferenceOld=conferenceOld, conferenceEast=conferenceEast, conferenceWest=conferenceWest)
+        return render_template('stats.html', date=date, gamesPlayedStr=gamesPlayedStr, winnerCode=winCode, loserCode=loseCode, winnerList=winnerList, loserList=loserList, conferenceStats=conferenceStats, conferenceOld=conferenceOld, conferenceEast=conferenceEast, conferenceWest=conferenceWest)
 
 @app.route('/stats/data', methods=['GET', 'POST'])
 def get_data():

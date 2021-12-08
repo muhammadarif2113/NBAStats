@@ -63,6 +63,12 @@ header h1{
     height: 100%;
     min-width: 470px;
 }
+#no-games{
+    text-align: center;
+    text-transform: uppercase;
+    color: red;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 #get-stats{
     position: fixed;
     transform: translate(-50%, -50%);
@@ -147,7 +153,7 @@ input[type="submit"]{
     visibility: hidden;
 } */
 
-.winners, .losers{
+.winners, .losers, .winnerCode, .loserCode{
     text-align: center;
 }
 

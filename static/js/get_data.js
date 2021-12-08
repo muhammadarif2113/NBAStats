@@ -4,21 +4,6 @@ var date = window.localStorage.getItem('date');
 
 
 
-
-
-
-
-// window.addEventListener('load', ()=>{
-//     window.location.reload(); 
-//     window.stop(); 
-// })
-// window.onload = function() {
-//     if(!window.location.hash) {
-//         window.location = window.location + '#loaded';
-//         window.location.reload();
-//     }
-// }
-
 function a (){
   if( window.localStorage ){
     if( !localStorage.getItem('firstLoad')){
@@ -29,7 +14,6 @@ function a (){
   }
 }
 
-    console.log(typeof(team))
     var team1 = team.substring(0, team.indexOf(','));
     var team2 = team.substring(team.indexOf(',') + 1, team.length)
 
@@ -37,7 +21,7 @@ function a (){
 
 logos.forEach((list, index) => {
     if(logos[index].alt != team1 && logos[index].alt != team2){
-            console.log(logos[index].alt)
+            // console.log(logos[index].alt)
             logos[index].style.display = "none"
             // localStorage.clear(); 
         
