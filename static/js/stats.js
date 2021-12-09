@@ -107,7 +107,8 @@ logos.forEach((list, index) => {
                 console.log(teamsChosen)
                 localStorage.setItem('teams', teamsChosen); 
                 sendData(teamsChosen); 
-                window.location.replace("http://127.0.0.1:5000/stats/data")
+                // window.location.replace("http://127.0.0.1:5000/stats/data")
+                window.location.replace('stats/data')
 
 
                /// trackClick1.push(logos[index]); 
@@ -224,7 +225,8 @@ logos.forEach((list, index) => {
 
                 localStorage.setItem('teams', teamsChosen);
                 sendData(teamsChosen);                 
-                window.location.replace('http://127.0.0.1:5000/stats/data')
+                //// window.location.replace('http://127.0.0.1:5000/stats/data')
+                window.location.replace('stats/data')
 
                 // gameBut.style.visibility = "visible"; 
                 // btn.style.visibility = "visible"; 
@@ -355,7 +357,9 @@ function getTeamCode(code, num){
 }
 
 function redirectTo(){
-    window.location.replace("http://127.0.0.1:5000/stats/data")
+    // window.location.replace("http://127.0.0.1:5000/stats/data")
+    window.location.replace('stats/data')
+    // window.location.replace('/stats/data')
 }
 
 
