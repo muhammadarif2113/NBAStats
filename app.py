@@ -675,7 +675,7 @@ def stats():
 @app.route('/stats/data', methods=['GET', 'POST'])
 def get_data():
     # if request.method =="POST":
-    time.sleep(2)
+    time.sleep(4)
     date = session["date"]
     winnerList = session["winnerList"]
     loserList = session["loserList"]
