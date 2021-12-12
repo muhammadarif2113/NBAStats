@@ -32,11 +32,27 @@ header h1{
     margin: 10px 12% 10px 12%;
     visibility: visible;
     transition: .3s ease; 
+    cursor: pointer;
+
+    
 }
 .team-logos{
     z-index: 9;
     position: relative;
 }
+
+
+.image-desc{
+    font-size: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-decoration: underline;
+}
+
+.span-desc{
+    font-size: 25px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 
 .btn{
     border: 1px solid white; 
@@ -194,5 +210,7 @@ header h1{
         width: 100%;
     }
 }
+
+
 
 

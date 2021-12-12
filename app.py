@@ -17,7 +17,7 @@ import requests
 # import pandas as pd
 # from tabulate import tabulate
 import re
-# import itertools
+import itertools
 import time 
 
 from werkzeug.datastructures import ContentSecurityPolicy
@@ -208,6 +208,8 @@ def stats():
     year = date[0:4]
     month = ""
     day = ""
+    year = int(year)
+    year = year+1
 
     conferenceStandingsURL = 'https://www.basketball-reference.com/leagues/NBA_{}.html'.format(year)
     conferenceStandingsResult = requests.get(conferenceStandingsURL)
@@ -226,8 +228,8 @@ def stats():
     for titles in range(len(conferencePlayers)):
         for tags in conferencePlayers[titles].find_all('a'):
             conferenceWinners.append(tags.text)
-
-    thisSeason = datetime.now().year + 1
+    year = str(year)
+    thisSeason = datetime.now().year + 1#+ 1
     thisSeason = str(thisSeason)
 
     if(year==thisSeason):
@@ -334,6 +336,8 @@ def stats():
         month = date[5:7]
         day = date[8:10]
     session["date"] = date
+    year = year-1
+    print(type(month))
     url = 'https://www.basketball-reference.com/boxscores/?month={}&day={}&year={}'.format(month, day, year)
     #get date and go to date page selected
 
@@ -381,19 +385,20 @@ def stats():
             teamCodes.append(stringGames[0])
     session["winnerList"] = winnerList
     session["loserList"] = loserList
-    year = year + 1
+    # year = year + 1
+    months = ["10", "11", "12"]
+    for a in months:
+        if(a == month):
+            year = year + 1
+
     year = str(year) #to get the code of teams only
-    print(year)
+    # print(year)
     winCode = []
     loseCode = []
     for win in range(len(winnerCode)):
         winTeam = winnerCode[win]
         winTeam = str(winTeam)
-        print('--------------------------------------------')
-        print(winTeam)
-        print('===========================================')
         winCodeFormat = re.search("/teams/(.*?)/{}".format(year), winTeam)
-        print(winCodeFormat)
         singleWin = winCodeFormat.group(1)
         winCode.append(singleWin)
     
@@ -439,19 +444,19 @@ def stats():
         db.session.add(insertGame)
         db.session.commit()
 
-        print(boxscoreLinkStr)
+        # print(boxscoreLinkStr)
     else: 
         print('do nothing!')
 
     
     if request.method == "POST":
         print('in the post request')
-        print(boxscoreLink)
+        # print(boxscoreLink)
         hello = session["gameCode"]
-        print(teamCodes[code])
+        # print(teamCodes[code])
         
         for games in range(len(boxscoreLink)):
-            print(boxscoreLink[games])
+            # print(boxscoreLink[games])
             print('firstTeam')
             print(firstTeam)  
             print('secondTeam')
@@ -465,6 +470,7 @@ def stats():
 
             comment = doc3.find_all(text=lambda text: isinstance(text, Comment))
             table = comment[28].strip()
+            print(table)
             scoreArryFirst = []
             scoreArrySecond = []            
             
@@ -483,8 +489,8 @@ def stats():
                 scoreArryFirst.append(team1Scores)
                 scoreArrySecond.append(team2Scores)
 
-            print(scoreArryFirst)
-            print(scoreArrySecond)
+            # print(scoreArryFirst)
+            # print(scoreArrySecond)
 
             
             statHeaders = []
@@ -492,20 +498,35 @@ def stats():
             boxscoreLinkStr = ' '.join(boxscoreLink)
             session["boxscoreLinkStr"] = boxscoreLinkStr
 
-            getTeam = re.search("<a href=(.*?)</a>", table)
+            getTeam = re.search("<a href=\'/teams/(.*?)/", table)
             getTeamAlone = getTeam.group(1)
+            # print(getTeamAlone)
+            
+            getSecondTeam = ''
+            if(getTeamAlone[-3:] == firstTeam):
+                getSecondTeam = secondTeam
+            else: 
+                getSecondTeam = firstTeam
             print(getTeamAlone[-3:])
+            print(getSecondTeam)
             insertQuarter = QuarterTeam1(gameLink=boxscoreLinkStr, team=getTeamAlone[-3:], first=scoreArryFirst[0], second=scoreArryFirst[1], third=scoreArryFirst[2], fourth=scoreArryFirst[3])
-            insertQuarter1 = QuarterTeam2(gameLink=boxscoreLinkStr, team=secondTeam, first=scoreArrySecond[0], second=scoreArrySecond[1], third=scoreArrySecond[2], fourth=scoreArrySecond[3])
+            insertQuarter1 = QuarterTeam2(gameLink=boxscoreLinkStr, team=getSecondTeam, first=scoreArrySecond[0], second=scoreArrySecond[1], third=scoreArrySecond[2], fourth=scoreArrySecond[3])
 
             db.session.add(insertQuarter)
             db.session.add(insertQuarter1)
             db.session.commit()
 
         countertable2 = 0
+        year = int(year)
+        year = year-1
+        print(year)
+        print(type(year))
+        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
         for an in range(len(tables2)):
             for rowe in tables2[an].find_all('tr')[2:]:
                 names = rowe.find_all('th', {'data-stat':'player'})
+                namess = rowe.find_all('a', href=True)
+                # print(names)
                 mp = rowe.find_all('td', {'data-stat':'mp'})
                 fg = rowe.find_all('td', {'data-stat':'fg'})
                 fga = rowe.find_all('td', {'data-stat':'fga'})
@@ -526,21 +547,52 @@ def stats():
                 pf = rowe.find_all('td', {'data-stat':'pf'})
                 pts = rowe.find_all('td', {'data-stat':'pts'})
                 plus_minus = rowe.find_all('td', {'data-stat':'plus_minus'})
-                
-                for (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u) in zip(names, mp, fg, fga, fg_pct, fg3, fg3a, fg3_pct, ft, fta, ft_pct, orb, drb, trb, ast, stl, blk, tov, pf, pts, plus_minus): 
-                    # try: 
-                    countertable2 = countertable2 + 1
-                    insertStats = Stats(game=teamsChosenStr, team=secondTeam, rowCount=countertable2, gameLink=boxscoreLinkStr, starters1=a.text, mp1=b.text, fg1=c.text, fga1=d.text, fg_pct1=e.text, fg31=f.text, fg3a1=g.text, fg3_pct1=h.text, ft1=i.text, fta1=j.text, ft_pct1=k.text, orb1=l.text, drb1=m.text, trb1=n.text, ast1=o.text, stl1=p.text, blk1=q.text, tov1=r.text, pf1=s.text, pts1=t.text, plus_minus1=u.text)
-                    db.session.add(insertStats)
-                db.session.commit()
-                    # except SQLAlchemyError as e: 
-                    #     error = str(e.__dict__['orig'])
-                    #     print(error)
+                # year = int(year)
+                if(year > 1995):
+                    print('greater than \'95')
+                    for (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u) in zip(names, mp, fg, fga, fg_pct, fg3, fg3a, fg3_pct, ft, fta, ft_pct, orb, drb, trb, ast, stl, blk, tov, pf, pts, plus_minus): 
+                        # try: 
+                        countertable2 = countertable2 + 1
+                        insertStats = Stats(game=teamsChosenStr, team=secondTeam, rowCount=countertable2, gameLink=boxscoreLinkStr, starters1=a.text, mp1=b.text, fg1=c.text, fga1=d.text, fg_pct1=e.text, fg31=f.text, fg3a1=g.text, fg3_pct1=h.text, ft1=i.text, fta1=j.text, ft_pct1=k.text, orb1=l.text, drb1=m.text, trb1=n.text, ast1=o.text, stl1=p.text, blk1=q.text, tov1=r.text, pf1=s.text, pts1=t.text, plus_minus1=u.text)
+                        db.session.add(insertStats)
+                    db.session.commit()
+                elif(year < 1979):
+                    for (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u) in itertools.zip_longest(namess, mp, fg, fga, fg_pct, fg3, fg3a, fg3_pct, ft, fta, ft_pct, orb, drb, trb, ast, stl, blk, tov, pf, pts, plus_minus): 
+                        print(a)
+                        try: 
+                            if a is None: 
+                                print('it is none')
+                                insertStats = Stats(game=teamsChosenStr, team=secondTeam, rowCount=countertable2, gameLink=boxscoreLinkStr, starters1="Team total", mp1=b.text, fg1=c.text, fga1=d.text, fg_pct1=e.text, fg31="-", fg3a1="-", fg3_pct1="-", ft1=i.text, fta1=j.text, ft_pct1=k.text, orb1=l.text, drb1=m.text, trb1=n.text, ast1=o.text, stl1=p.text, blk1=q.text, tov1=r.text, pf1=s.text, pts1=t.text, plus_minus1="-")
+                            else:
+                                countertable2 = countertable2 + 1
+                                insertStats = Stats(game=teamsChosenStr, team=secondTeam, rowCount=countertable2, gameLink=boxscoreLinkStr, starters1=a.text, mp1=b.text, fg1=c.text, fga1=d.text, fg_pct1=e.text, fg31="-", fg3a1="-", fg3_pct1="-", ft1=i.text, fta1=j.text, ft_pct1=k.text, orb1=l.text, drb1=m.text, trb1=n.text, ast1=o.text, stl1=p.text, blk1=q.text, tov1=r.text, pf1=s.text, pts1=t.text, plus_minus1="-")
+                                db.session.add(insertStats)
+                                db.session.commit()
+                        except SQLAlchemyError as e: 
+                            error = str(e.__dict__['orig'])
+                            print(error)
+                else: 
+                    print('lessss than \'95')
+                    for (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u) in itertools.zip_longest(namess, mp, fg, fga, fg_pct, fg3, fg3a, fg3_pct, ft, fta, ft_pct, orb, drb, trb, ast, stl, blk, tov, pf, pts, plus_minus): 
+                        print(a)
+                        try: 
+                            if a is None: 
+                                print('it is none')
+                                insertStats = Stats(game=teamsChosenStr, team=secondTeam, rowCount=countertable2, gameLink=boxscoreLinkStr, starters1="Team total", mp1=b.text, fg1=c.text, fga1=d.text, fg_pct1=e.text, fg31=f.text, fg3a1=g.text, fg3_pct1=h.text, ft1=i.text, fta1=j.text, ft_pct1=k.text, orb1=l.text, drb1=m.text, trb1=n.text, ast1=o.text, stl1=p.text, blk1=q.text, tov1=r.text, pf1=s.text, pts1=t.text, plus_minus1="-")
+                            else:
+                                countertable2 = countertable2 + 1
+                                insertStats = Stats(game=teamsChosenStr, team=secondTeam, rowCount=countertable2, gameLink=boxscoreLinkStr, starters1=a.text, mp1=b.text, fg1=c.text, fga1=d.text, fg_pct1=e.text, fg31=f.text, fg3a1=g.text, fg3_pct1=h.text, ft1=i.text, fta1=j.text, ft_pct1=k.text, orb1=l.text, drb1=m.text, trb1=n.text, ast1=o.text, stl1=p.text, blk1=q.text, tov1=r.text, pf1=s.text, pts1=t.text, plus_minus1="-")
+                                db.session.add(insertStats)
+                                db.session.commit()
+                        except SQLAlchemyError as e: 
+                            error = str(e.__dict__['orig'])
+                            print(error)
 
         countertable1 = 0
         for an2 in range(len(tables1)):
             for rowe2 in tables1[an2].find_all('tr')[2:]:
                 names4 = rowe2.find_all('th', {'data-stat':'player'})   
+                namess4 = rowe2.find_all('a', href=True)
                 mp2 = rowe2.find_all('td', {'data-stat':'mp'})
                 fg2 = rowe2.find_all('td', {'data-stat':'fg'})
                 fga2 = rowe2.find_all('td', {'data-stat':'fga'})
@@ -561,17 +613,50 @@ def stats():
                 pf2 = rowe2.find_all('td', {'data-stat':'pf'})
                 pts2 = rowe2.find_all('td', {'data-stat':'pts'})
                 plus_minus2 = rowe2.find_all('td', {'data-stat':'plus_minus'})
-
-                
-                for (a2, b2, c2, d2, e2, f2, g2, h2, i2, j2, k2, l2, m2, n2, o2, p2, q2, r2, s2, t2, u2) in zip(names4, mp2, fg2, fga2, fg_pct2, fg32, fg3a2, fg3_pct2, ft2, fta2, ft_pct2, orb2, drb2, trb2, ast2, stl2, blk2, tov2, pf2, pts2, plus_minus2): 
-                    try: 
-                        countertable1 = countertable1 + 1
-                        insertStats2 = Stats2(game3=teamsChosenStr, team3=firstTeam, rowCount=countertable1, gameLink3=boxscoreLinkStr, starters3=a2.text, mp3=b2.text, fg3=c2.text, fga3=d2.text, fg_pct3=e2.text, fg33=f2.text, fg3a3=g2.text, fg3_pct3=h2.text, ft3=i2.text, fta3=j2.text, ft_pct3=k2.text, orb3=l2.text, drb3=m2.text, trb3=n2.text, ast3=o2.text, stl3=p2.text, blk3=q2.text, tov3=r2.text, pf3=s2.text, pts3=t2.text, plus_minus3=u2.text)
-                        db.session.add(insertStats2)
-                        db.session.commit()
-                    except SQLAlchemyError as e: 
-                        error = str(e.__dict__['orig'])
-                        print(error)
+                # print(year)
+                # print(type(year))
+                if(year > 1995):
+                    print('greater than \'95')
+                    for (a2, b2, c2, d2, e2, f2, g2, h2, i2, j2, k2, l2, m2, n2, o2, p2, q2, r2, s2, t2, u2) in zip(names4, mp2, fg2, fga2, fg_pct2, fg32, fg3a2, fg3_pct2, ft2, fta2, ft_pct2, orb2, drb2, trb2, ast2, stl2, blk2, tov2, pf2, pts2, plus_minus2): 
+                        try: 
+                            countertable1 = countertable1 + 1
+                            insertStats2 = Stats2(game3=teamsChosenStr, team3=firstTeam, rowCount=countertable1, gameLink3=boxscoreLinkStr, starters3=a2.text, mp3=b2.text, fg3=c2.text, fga3=d2.text, fg_pct3=e2.text, fg33=f2.text, fg3a3=g2.text, fg3_pct3=h2.text, ft3=i2.text, fta3=j2.text, ft_pct3=k2.text, orb3=l2.text, drb3=m2.text, trb3=n2.text, ast3=o2.text, stl3=p2.text, blk3=q2.text, tov3=r2.text, pf3=s2.text, pts3=t2.text, plus_minus3=u2.text)
+                            db.session.add(insertStats2)
+                            db.session.commit()
+                        except SQLAlchemyError as e: 
+                            error = str(e.__dict__['orig'])
+                            print(error)
+                elif(year < 1979):
+                    for (a2, b2, c2, d2, e2, f2, g2, h2, i2, j2, k2, l2, m2, n2, o2, p2, q2, r2, s2, t2, u2) in itertools.zip_longest(namess4, mp2, fg2, fga2, fg_pct2, fg32, fg3a2, fg3_pct2, ft2, fta2, ft_pct2, orb2, drb2, trb2, ast2, stl2, blk2, tov2, pf2, pts2, plus_minus2): 
+                        print(a2)
+                        try: 
+                            if a2 is None: 
+                                print('a2 is none')
+                                insertStats2 = Stats2(game3=teamsChosenStr, team3=firstTeam, rowCount=countertable1, gameLink3=boxscoreLinkStr, starters3="Team Total", mp3=b2.text, fg3=c2.text, fga3=d2.text, fg_pct3=e2.text, fg33="-", fg3a3="-", fg3_pct3="-", ft3=i2.text, fta3=j2.text, ft_pct3=k2.text, orb3=l2.text, drb3=m2.text, trb3=n2.text, ast3=o2.text, stl3=p2.text, blk3=q2.text, tov3=r2.text, pf3=s2.text, pts3=t2.text, plus_minus3="-")
+                            else: 
+                                countertable1 = countertable1 + 1
+                                insertStats2 = Stats2(game3=teamsChosenStr, team3=firstTeam, rowCount=countertable1, gameLink3=boxscoreLinkStr, starters3=a2.text, mp3=b2.text, fg3=c2.text, fga3=d2.text, fg_pct3=e2.text, fg33="-", fg3a3="-", fg3_pct3="-", ft3=i2.text, fta3=j2.text, ft_pct3=k2.text, orb3=l2.text, drb3=m2.text, trb3=n2.text, ast3=o2.text, stl3=p2.text, blk3=q2.text, tov3=r2.text, pf3=s2.text, pts3=t2.text, plus_minus3="-")
+                                db.session.add(insertStats2)
+                                db.session.commit()
+                        except SQLAlchemyError as e: 
+                            error = str(e.__dict__['orig'])
+                            print(error)
+                else: 
+                    print('less than \'95')
+                    for (a2, b2, c2, d2, e2, f2, g2, h2, i2, j2, k2, l2, m2, n2, o2, p2, q2, r2, s2, t2, u2) in itertools.zip_longest(namess4, mp2, fg2, fga2, fg_pct2, fg32, fg3a2, fg3_pct2, ft2, fta2, ft_pct2, orb2, drb2, trb2, ast2, stl2, blk2, tov2, pf2, pts2, plus_minus2): 
+                        print(a2)
+                        try: 
+                            if a2 is None: 
+                                print('a2 is none')
+                                insertStats2 = Stats2(game3=teamsChosenStr, team3=firstTeam, rowCount=countertable1, gameLink3=boxscoreLinkStr, starters3="Team Total", mp3=b2.text, fg3=c2.text, fga3=d2.text, fg_pct3=e2.text, fg33=f2.text, fg3a3=g2.text, fg3_pct3=h2.text, ft3=i2.text, fta3=j2.text, ft_pct3=k2.text, orb3=l2.text, drb3=m2.text, trb3=n2.text, ast3=o2.text, stl3=p2.text, blk3=q2.text, tov3=r2.text, pf3=s2.text, pts3=t2.text, plus_minus3="-")
+                            else: 
+                                countertable1 = countertable1 + 1
+                                insertStats2 = Stats2(game3=teamsChosenStr, team3=firstTeam, rowCount=countertable1, gameLink3=boxscoreLinkStr, starters3=a2.text, mp3=b2.text, fg3=c2.text, fga3=d2.text, fg_pct3=e2.text, fg33=f2.text, fg3a3=g2.text, fg3_pct3=h2.text, ft3=i2.text, fta3=j2.text, ft_pct3=k2.text, orb3=l2.text, drb3=m2.text, trb3=n2.text, ast3=o2.text, stl3=p2.text, blk3=q2.text, tov3=r2.text, pf3=s2.text, pts3=t2.text, plus_minus3="-")
+                                db.session.add(insertStats2)
+                                db.session.commit()
+                        except SQLAlchemyError as e: 
+                            error = str(e.__dict__['orig'])
+                            print(error)
 
         return render_template('stats.html')
 

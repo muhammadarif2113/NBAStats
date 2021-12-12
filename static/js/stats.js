@@ -11,6 +11,7 @@ var date = document.querySelector(".data h2");
 var gamesPlayed = document.getElementById("no-games"); 
 var seeDataBtn = document.getElementById("date-but2"); 
 
+var leftBtn = document.getElementById("left-but"); 
 localStorage.setItem('date', date.innerHTML); 
 
 
@@ -18,6 +19,42 @@ localStorage.setItem('date', date.innerHTML);
 function back(){
     location.reload(); 
 }
+
+// leftBtn.addEventListener('click', ()=>{
+//     console.log(window.location.href)
+//     var currentDate = localStorage.getItem('date') 
+//     var year = currentDate.substring(0, 4)
+//     var month = currentDate.substring(5, 7)
+//     var day = currentDate.substring(8, 10)
+//     month = parseInt(month)
+//     day = parseInt(day)
+//     console.log(day)
+//     var d = new Date(); 
+//     console.log(d)
+//     while(!gamesPlayed){
+//         day = day - 1
+//         if(day < 10){
+//             if(month < 10){
+//                 // var day2 = day.toString()
+//                 day2 = "0" + day.toString()
+//                 month2 = "0" + month.toString()
+//                 var url = `http://127.0.0.1:5000/stats?date=${year}-${month2}-${day2}`
+//                 console.log(url)
+//                 window.location.href = url 
+//                 break; 
+//             }
+//         } else {
+//             var url = `http://127.0.0.1:5000/stats?date=${year}-${month}-${day}`
+//             print(day.length)
+//             console.log(url)
+//             window.location.href = url 
+//             break; 
+//         }
+//         break; 
+        
+//     }
+    
+// })
 
 for(let i = 0; i < winners.length; i++){
     if (winners.charAt(i) == '[' || winners.charAt(i) == ']'){
@@ -52,12 +89,14 @@ console.log(loseCodeArray);
 var altArry = [] //alt tag from html
 
 
+
 logos.forEach((list, index) => {
     // var teamLogos = list.querySelector(".team-logos");
+    
     if(gamesPlayed){
         console.log('no teams')
         logos[index].style.display = 'none'; 
-        seeDataBtn.style.display = 'none'; 
+        // seeDataBtn.style.display = 'none'; 
     }
 
     altArry.push(logos[index].alt)
@@ -74,8 +113,11 @@ logos.forEach((list, index) => {
             // console.log(winArray[i])
             //winArray names from python scrpaed
             // getTeamCode(winCodeArray[i].replace(/'/g,'').trim())
+            
             logos[index].style.opacity = '1'; 
+            
             logos[index].style.cursor = 'pointer'; 
+
             logos[index].addEventListener('mouseenter', ()=>{
                 logos[index].style.transform = 'scale(1.7, 1.4)'; 
                 logos[index].style.zIndex = '6'; 
@@ -85,8 +127,6 @@ logos.forEach((list, index) => {
                 logos[index].style.transform = null; 
             })
 
-
-
             logos[index].addEventListener('click', ()=>{
                 // window.location.replace('http://127.0.0.1:5000/stats/data')
                 // gameBut.style.visibility = "visible"; 
@@ -95,7 +135,6 @@ logos.forEach((list, index) => {
                 console.log(logos[index].alt)
                 teamsChosen.push(logos[index].alt); 
                 getCodeOf = getTeamCode(logos[index].alt, 2)
-                console.log(getCodeOf); 
 
                 for(let win=0; win<winCodeArray.length; win++){
                     if(getCodeOf[0] == winCodeArray[win].replace(/'/g,'').trim()){
@@ -157,7 +196,6 @@ logos.forEach((list, index) => {
 
             }); //{once : true} 
 
-            
         }
     }
     trackClick = []
@@ -180,6 +218,7 @@ logos.forEach((list, index) => {
             // }
             // console.log(losArray[i])
             logos[index].style.opacity = '1'; 
+            
             //}
             logos[index].style.cursor = 'pointer'; 
             logos[index].addEventListener('mouseenter', ()=>{
@@ -200,6 +239,7 @@ logos.forEach((list, index) => {
                 teamsChosen.push(logos[index].alt)
                 getCodeOf = getTeamCode(logos[index].alt, 2) //clicked on team's code
                 console.log(getCodeOf); 
+
 
                 for(let los =0; los<loseCodeArray.length; los++){
                     if (getCodeOf[0] == loseCodeArray[los].replace(/'/g,'').trim()){
@@ -292,13 +332,18 @@ logos.forEach((list, index) => {
             }); //{once : true} 
         }
     }    
+    if(logos[index].style.opacity != '1'){
+        logos[index].style.display = 'none'; 
+    }
 
+});
 
-})
 
 var dateChosen = localStorage.getItem('date'); 
 dateChosenYear = dateChosen.substring(0, 4); 
 dateChosenYear = parseInt(dateChosenYear); 
+
+
 // console.log(dateChosenYear); 
 
 
@@ -320,16 +365,34 @@ dateChosenYear = parseInt(dateChosenYear);
 
 
 function getTeamCode(code, num){
+    var teamCodes = {
+        "toronto": "TOR", "utah": "UTA","atlanta": "ATL","boston": "BOS","brooklyn": "BRK","charlotte": "CHO", "charlotte": "CHH", 
+        "chicago": "CHI","cleveland": "CLE","dallas": "DAL","denver": "DEN","detroit": "DET","golden state": "GSW",
+        "houston": "HOU","indiana": "IND","la clippers": "LAC","la lakers": "LAL","memphis": "MEM","miami": "MIA",
+        "milwaukee": "MIL","minnesota": "MIN","new orleans": "NOP","new york": "NYK","oklahoma city": "OKC",
+        "orlando": "ORL","philadelphia": "PHI","phoenix": "PHO","portland": "POR","sacramento": "SAC", "vancouver":"VAN",
+        "san antonio": "SAS","washington": "WAS", "charlotteOld": "CHA", "new orleansOld": "NOH", "new jersey": "NJN", 
+        "seattle":"SEA", "baltimore": "BAL", "buffalo":"BUF", "washingtonOldOld":"CAP", "chicagoOldOld":"CHP", 
+        "chicagoOld":"CHZ", "chicagoOldOldOld":"CHS", "cincinnati":"CIN", "clevelandOld":"CLR", "indianaOld":"FTW",
+        "kansascityOld":"KCK", "kansascityOldOld":"KCO", "milwaukeeOld":"MLH", "minneapolis":"MNL", "new orleansOldOld":"NOJ", 
+        "new yorkOld":"NYN", "new orleans okc":"NOK", "philadelphiaOld":"PHW", "rhode island":"PRO", "rochester":"ROC", "sandiego":"SDC",
+        "sandiegoOld":"SDR", "sanfrancisco":"SFW", "stlouisOld":"STB", "stlouis":"STL", "syracuse":"SYR", "torontoOld":"TRH", "illinois":"TRI", "washingtonOld":"WSB"
+    }
     // console.log(code)
     if(num==1){ //to get team name/key
-        var teamCodes = {
-            "toronto": "TOR", "utah": "UTA","atlanta": "ATL","boston": "BOS","brooklyn": "BRK","charlotte": "CHO", 
-            "chicago": "CHI","cleveland": "CLE","dallas": "DAL","denver": "DEN","detroit": "DET","golden state": "GSW",
-            "houston": "HOU","indiana": "IND","la clippers": "LAC","la lakers": "LAL","memphis": "MEM","miami": "MIA",
-            "milwaukee": "MIL","minnesota": "MIN","new orleans": "NOP","new york": "NYK","oklahoma city": "OKC",
-            "orlando": "ORL","philadelphia": "PHI","phoenix": "PHO","portland": "POR","sacramento": "SAC",
-            "san antonio": "SAS","washington": "WAS", "charlotteOld": "CHA", "new orleansOld": "NOH", "new jersey": "NJN", "seattle":"SEA"
-        }
+        // var teamCodes = {
+        //     "toronto": "TOR", "utah": "UTA","atlanta": "ATL","boston": "BOS","brooklyn": "BRK","charlotte": "CHO", 
+        //     "chicago": "CHI","cleveland": "CLE","dallas": "DAL","denver": "DEN","detroit": "DET","golden state": "GSW",
+        //     "houston": "HOU","indiana": "IND","la clippers": "LAC","la lakers": "LAL","memphis": "MEM","miami": "MIA",
+        //     "milwaukee": "MIL","minnesota": "MIN","new orleans": "NOP","new york": "NYK","oklahoma city": "OKC",
+        //     "orlando": "ORL","philadelphia": "PHI","phoenix": "PHO","portland": "POR","sacramento": "SAC",
+        //     "san antonio": "SAS","washington": "WAS", "charlotteOld": "CHA", "new orleansOld": "NOH", "new jersey": "NJN", 
+        //     "seattle":"SEA", "baltimore": "BAL", "buffalo":"BUF", "washingtonOldOld":"CAP", "chicagoOldOld":"CHP", 
+        //     "chicagoOld":"CHZ", "chicagoOldOldOld":"CHS", "cincinnati":"CIN", "clevelandOld":"CLR", "indianaOld":"FTW",
+        //     "kansascityOld":"KCK", "kansascityOldOld":"KCO", "milwaukeeOld":"MLH", "minneapolis":"MNL", "new orleansOldOld":"NOJ", 
+        //     "new yorkOld":"NYN", "new orleans okc":"NOK", "philadelphiaOld":"PHW", "rhode island":"PRO", "rochester":"ROC", "sandiego":"SDC",
+        //     "sandiegoOld":"SDR", "sanfrancisco":"SFW", "stlouisOld":"STB", "stlouis":"STL", "syracuse":"SYR", "torontoOld":"TRH", "illinois":"TRI", "washingtonOld":"WSB"
+        // }
         keyArry = []; 
         Object.entries(teamCodes).forEach(([key, value]) => {
             if(value == code){
@@ -338,14 +401,19 @@ function getTeamCode(code, num){
         }); 
         return keyArry; 
     } else if (num==2){ //to get team code/value
-        var teamCodes = {
-            "toronto": "TOR", "utah": "UTA","atlanta": "ATL","boston": "BOS","brooklyn": "BRK","charlotte": "CHO", 
-            "chicago": "CHI","cleveland": "CLE","dallas": "DAL","denver": "DEN","detroit": "DET","golden state": "GSW",
-            "houston": "HOU","indiana": "IND","la clippers": "LAC","la lakers": "LAL","memphis": "MEM","miami": "MIA",
-            "milwaukee": "MIL","minnesota": "MIN","new orleans": "NOP","new york": "NYK","oklahoma city": "OKC",
-            "orlando": "ORL","philadelphia": "PHI","phoenix": "PHO","portland": "POR","sacramento": "SAC",
-            "san antonio": "SAS","washington": "WAS", "charlotteOld": "CHA", "new orleansOld": "NOH", "new jersey": "NJN", "seattle":"SEA"
-        }
+        // var teamCodes = {
+        //     "toronto": "TOR", "utah": "UTA","atlanta": "ATL","boston": "BOS","brooklyn": "BRK","charlotte": "CHO", 
+        //     "chicago": "CHI","cleveland": "CLE","dallas": "DAL","denver": "DEN","detroit": "DET","golden state": "GSW",
+        //     "houston": "HOU","indiana": "IND","la clippers": "LAC","la lakers": "LAL","memphis": "MEM","miami": "MIA",
+        //     "milwaukee": "MIL","minnesota": "MIN","new orleans": "NOP","new york": "NYK","oklahoma city": "OKC",
+        //     "orlando": "ORL","philadelphia": "PHI","phoenix": "PHO","portland": "POR","sacramento": "SAC",
+        //     "san antonio": "SAS","washington": "WAS", "charlotteOld": "CHA", "new orleansOld": "NOH", "new jersey": "NJN", 
+        //     "seattle":"SEA", "baltimore": "BAL", "buffalo":"BUF", "washingtonOldOld":"CAP", "chicagoOldOld":"CHP", 
+        //     "chicagoOld":"CHZ", "chicagoOldOldOld":"CHS", "cincinnati":"CIN", "clevelandOld":"CLR", "indianaOld":"FTW",
+        //     "kansascityOld":"KCK", "kansascityOldOld":"KCO", "milwaukeeOld":"MLH", "minneapolis":"MNL", "new orleansOldOld":"NOJ", 
+        //     "new yorkOld":"NYN", "new orleans okc":"NOK", "philadelphiaOld":"PHW", "rhode island":"PRO", "rochester":"ROC", "sandiego":"SDC",
+        //     "sandiegoOld":"SDR", "sanfrancisco":"SFW", "stlouisOld":"STB", "stlouis":"STL", "syracuse":"SYR", "torontoOld":"TRH", "illinois":"TRI", "washingtonOld":"WSB"
+        // }
         valArry = []; 
         Object.entries(teamCodes).forEach(([key, value]) => {
             if(key == code){
@@ -372,12 +440,17 @@ function sendData(team){
         chosenTeamCodes = []
 
         var teamCodes = {
-            "toronto": "TOR", "utah": "UTA","atlanta": "ATL","boston": "BOS","brooklyn": "BRK","charlotte": "CHO", 
+            "toronto": "TOR", "utah": "UTA","atlanta": "ATL","boston": "BOS","brooklyn": "BRK","charlotte": "CHO", "charlotte": "CHH", 
             "chicago": "CHI","cleveland": "CLE","dallas": "DAL","denver": "DEN","detroit": "DET","golden state": "GSW",
             "houston": "HOU","indiana": "IND","la clippers": "LAC","la lakers": "LAL","memphis": "MEM","miami": "MIA",
             "milwaukee": "MIL","minnesota": "MIN","new orleans": "NOP","new york": "NYK","oklahoma city": "OKC",
-            "orlando": "ORL","philadelphia": "PHI","phoenix": "PHO","portland": "POR","sacramento": "SAC",
-            "san antonio": "SAS","washington": "WAS", "charlotteOld": "CHA", "new orleansOld": "NOH", "new jersey": "NJN", "seattle":"SEA"
+            "orlando": "ORL","philadelphia": "PHI","phoenix": "PHO","portland": "POR","sacramento": "SAC", "vancouver":"VAN",
+            "san antonio": "SAS","washington": "WAS", "charlotteOld": "CHA", "new orleansOld": "NOH", "new jersey": "NJN", 
+            "seattle":"SEA", "baltimore": "BAL", "buffalo":"BUF", "washingtonOldOld":"CAP", "chicagoOldOld":"CHP", 
+            "chicagoOld":"CHZ", "chicagoOldOldOld":"CHS", "cincinnati":"CIN", "clevelandOld":"CLR", "indianaOld":"FTW",
+            "kansascityOld":"KCK", "kansascityOldOld":"KCO", "milwaukeeOld":"MLH", "minneapolis":"MNL", "new orleansOldOld":"NOJ", 
+            "new yorkOld":"NYN", "new orleans okc":"NOK", "philadelphiaOld":"PHW", "rhode island":"PRO", "rochester":"ROC", "sandiego":"SDC",
+            "sandiegoOld":"SDR", "sanfrancisco":"SFW", "stlouisOld":"STB", "stlouis":"STL", "syracuse":"SYR", "torontoOld":"TRH", "illinois":"TRI", "washingtonOld":"WSB"
         }
 
         for (var key in teamCodes){
@@ -419,6 +492,10 @@ function sendData(team){
 
         // } 
     }
+}
+
+function clearDate(){
+    localStorage.clear(); 
 }
 
 

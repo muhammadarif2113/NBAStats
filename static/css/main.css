@@ -22,7 +22,7 @@ header h1{
     border: 1px solid black;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    margin: 0 1% 0 1%;
+    margin: 0 1% 14px 1%;
 }
 
 *, 
@@ -131,6 +131,15 @@ input[type="submit"]{
 #game-but{
     visibility: visible;
 }
+
+.fas{
+    color: blue;
+}
+
+.fas:hover{
+    color: red;
+}
+
 .team-logos{
     height: 100px;
     width: 100px;
