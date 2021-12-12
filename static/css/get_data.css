@@ -43,7 +43,7 @@ header h1{
 
 
 .image-desc{
-    font-size: 30px;
+    font-size: 28px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-decoration: underline;
 }
@@ -197,6 +197,9 @@ header h1{
     .boxScore-ctn{
         display: flex;
         justify-content: space-around; 
+    }
+    .image-desc{
+        font-size: 25px;
     }
 }
 
