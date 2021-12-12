@@ -211,7 +211,7 @@ function showTable1(){
 }
 
 function back1(){
-    window.location.replace(`http://127.0.0.1:5000/stats?date=${date}`)
+    window.location.replace(`/stats?date=${date}`)
     localStorage.clear(); 
 
 }
